@@ -11,11 +11,11 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 L.marker([42.386967, -71.098598]).addTo(mymap)
   .bindPopup("<b>Welcome to City Hall</b><br />I am a popup.").openPopup();
 
-L.circle([42.386967, -71.098598], 500, {
-  color: 'red',
-  fillColor: '#f03',
-  fillOpacity: 0.5
-}).addTo(mymap).bindPopup("Yeti sightings");
+// loading GeoJSON file 
+$.getJSON("map.geojson",function(data){
+// L.geoJson function is used to parse geojson file and load on to map
+L.geoJson(data).addTo(mymap);
+});
 
 var popup = L.popup();
 
