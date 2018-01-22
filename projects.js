@@ -8,22 +8,11 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
   id: 'mapbox.streets'
 }).addTo(mymap);
 
-L.marker([42.386967, -71.098598]).addTo(mymap)
-  .bindPopup("<b>Welcome to City Hall</b><br />I am a popup.").openPopup();
+var ciplayer;
 
-// loading GeoJSON file 
-$.getJSON("map.geojson",function(data){
-// L.geoJson function is used to parse geojson file and load on to map
-L.geoJson(data).addTo(mymap);
-});
+// add the cip GeoJSON layer using the cipData variable from cip.js aka cip.geojson
+var cipLayer = new L.geoJSON(cipData,{
 
-var popup = L.popup();
-
-function onMapClick(e) {
-  popup
-    .setLatLng(e.latlng)
-    .setContent("You clicked the map at " + e.latlng.toString())
-    .openOn(mymap);
-}
-
-mymap.on('click', onMapClick);
+	onEachFeature: function (feature, layer) {
+         layer.bindPopup(feature.properties.proj_name)
+	}}).addTo(mymap);
